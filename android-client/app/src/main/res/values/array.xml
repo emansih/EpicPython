@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="user_string">
+        <item>Restaurant</item>
+        <item>Food Donor</item>
+        <item>Someone in need of food</item>
+    </string-array>
+
+</resources>

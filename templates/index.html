@@ -59,6 +59,25 @@
                 </div>
             </div>
         </div>
+    </div>
 </section>
+<br><br>
+
+<div class="container has-text-centered">
+    {% for i in range(2) %}
+    <div class="tile is-ancestor">
+        {% for i in range(3) %}
+        <div class="tile is-parent">
+            <article class="tile is-child notification is-warning is-light">
+                <a class="title">Food name</a>
+                <br><br>
+                <p class="subtitle">Donor</p>
+                <span class="tag is-link is-light is-medium">Category</span>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
 </body>
 </html>

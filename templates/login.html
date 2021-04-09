@@ -33,38 +33,20 @@
             <div class="columns is-vcentered">
                 <div class="column is-4">
                     <figure class="image">
-                        {% if user_type == 'donor': %}
-                        <img src="https://www.flaticon.com/svg/vstatic/svg/3436/3436702.svg?token=exp=1617959880~hmac=ca7c9c7fb79218794b40f561482d5891"
+                        <img src="https://www.flaticon.com/svg/vstatic/svg/3798/3798771.svg?token=exp=1617966944~hmac=f737770f945da295e082c512257f6b8b"
                              alt="food donor signup">
-                        {% elif user_type == 'buyer': %}
-                        <img src="https://www.flaticon.com/svg/vstatic/svg/3050/3050209.svg?token=exp=1617959442~hmac=0c0655a54c4be2bd232a4cfea788618d"
-                             alt="food buyer signup">
-                        {% elif user_type == 'free': %}
-                        <img src="https://www.flaticon.com/svg/vstatic/svg/4244/4244676.svg?token=exp=1617959369~hmac=ca6737436db6ba2a38086e0d557e77eb"
-                             alt="emergency food supplies signup">
-                        {% endif %}
                     </figure>
                 </div>
                 <div class="column is-7 is-offset-2">
                     <div class="column is-half">
                         <p class="title is-1">
-                            Sign up
+                            Log in
                         </p>
                         <br>
-                        <p class="subtitle is-4">
-                            {% if user_type == 'donor': %}
-                            as a Food Donor
-                            {% elif user_type == 'buyer': %}
-                            as a Food Buyer
-                            {% elif user_type == 'free': %}
-                            for Free Emergency Food Supplies
-                            {% endif %}
-                        </p>
 <!--                        <div class="notification is-warning">-->
-<!--                            this username already exists-->
+<!--                            wrong id or password-->
 <!--                        </div>-->
                         <form method="post">
-                            <input type="hidden" name="user_type" value={{ user_type }}>
                             <div class="field">
                                 <input class="input" type="text" placeholder="Username">
                             </div>

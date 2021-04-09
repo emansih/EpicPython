@@ -7,9 +7,25 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+
 @app.route('/signup/donor')
 def signup_donor():
-    return render_template('signup_donor.html')\
+    return signup('donor')
+
+
+@app.route('/signup/buyer')
+def signup_buyer():
+    return signup('buyer')
+
+
+@app.route('/signup/free')
+def signup_free():
+    return signup('free')
+
+
+def signup(type):
+    return render_template('signup.html', user_type=type)
+
 
 @app.route('/login')
 def login():

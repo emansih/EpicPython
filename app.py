@@ -30,3 +30,7 @@ def signup(type):
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.route('/donate')
+def donate():
+    return render_template('donate.html')

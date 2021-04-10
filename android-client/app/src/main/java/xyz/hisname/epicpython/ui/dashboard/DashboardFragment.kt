@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.mikepenz.iconics.IconicsDrawable
@@ -147,20 +148,12 @@ class DashboardFragment: Fragment() {
         val tasks = ArrayList<Task<QuerySnapshot>>()
         bounds.forEach { b ->
             val query = db.collection("users")
-                .whereEqualTo("userType", "restaurant")
-                .whereEqualTo("dietary", diet)
+                .whereIn("userType", arrayListOf("restaurant", "private_donor"))
+               // .whereEqualTo("dietary", diet)
                 .orderBy("geohash")
                 .startAt(b.startHash)
                 .endAt(b.endHash)
 
-            val privateDonorQuery = db.collection("users")
-                .whereEqualTo("userType", "private_donor")
-                .whereEqualTo("dietary", diet)
-                .orderBy("geohash")
-                .startAt(b.startHash)
-                .endAt(b.endHash)
-
-            tasks.add(privateDonorQuery.get())
             tasks.add(query.get())
         }
         Tasks.whenAllComplete(tasks).addOnCompleteListener {

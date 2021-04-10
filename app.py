@@ -13,11 +13,6 @@ def signup_donor():
     return signup('donor')
 
 
-@app.route('/signup/buyer')
-def signup_buyer():
-    return signup('buyer')
-
-
 @app.route('/signup/free')
 def signup_free():
     return signup('free')

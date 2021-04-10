@@ -116,6 +116,28 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/dietaryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dietary"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/dateExpiredLayout"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Spinner
+                android:id="@+id/dietarySpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="12dp"
+                android:entries="@array/dietary"
+                app:layout_constraintTop_toBottomOf="@+id/dietaryText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <com.github.florent37.expansionpanel.ExpansionHeader
                 android:id="@+id/expansionHeader"
                 android:layout_height="wrap_content"
@@ -124,7 +146,7 @@
                 app:expansion_headerIndicator="@id/headerIndicator"
                 app:expansion_layout="@id/expansionLayout"
                 app:expansion_toggleOnClick="true"
-                app:layout_constraintTop_toBottomOf="@+id/dateExpiredLayout"
+                app:layout_constraintTop_toBottomOf="@+id/dietarySpinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 

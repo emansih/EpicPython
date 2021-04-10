@@ -38,6 +38,7 @@ import xyz.hisname.epicpython.databinding.FragmentDashboardBinding
 import xyz.hisname.epicpython.model.FoodModel
 import xyz.hisname.epicpython.ui.addFood.AddFoodFragment
 import xyz.hisname.epicpython.ui.fooddetails.FoodDetailsFragment
+import xyz.hisname.epicpython.util.getViewModel
 import xyz.hisname.epicpython.util.toastInfo
 
 class DashboardFragment: Fragment() {
@@ -48,6 +49,9 @@ class DashboardFragment: Fragment() {
     private val locationService by lazy { requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager }
     private val foodList = arrayListOf<FoodModel>()
     private val foodAdapter by lazy { FoodAdapters(foodList){ data: FoodModel -> clickListener(data)} }
+    private val dashboardViewModel by lazy { getViewModel(DashboardViewModel::class.java) }
+    private var latitude = 0.0
+    private var longitude = 0.0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentDashboardBinding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -71,7 +75,9 @@ class DashboardFragment: Fragment() {
 
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            getNearbyDonors(location.latitude, location.longitude)
+            latitude = location.latitude
+            longitude = location.longitude
+            getNearbyDonors(latitude, longitude, "No Dietary Requirements", 2)
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
@@ -84,6 +90,7 @@ class DashboardFragment: Fragment() {
             replace(R.id.fragment_container, FoodDetailsFragment().apply {
                 arguments = bundleOf("databaseId" to data.entryId, "userId" to data.uid)
             })
+            addToBackStack(null)
         }
     }
 
@@ -91,6 +98,10 @@ class DashboardFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = foodAdapter
+        binding.filterIcon.setImageDrawable(IconicsDrawable(requireContext()).apply {
+            icon = FontAwesome.Icon.faw_filter
+            sizeDp = 24
+        })
         binding.restaurantImage.setImageDrawable(
             IconicsDrawable(requireContext()).apply {
                 icon = GoogleMaterial.Icon.gmd_local_restaurant
@@ -115,26 +126,36 @@ class DashboardFragment: Fragment() {
                 }
             }
         gpsPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        binding.filterIcon.setOnClickListener {
+            val filterDialog = FilterBottomSheet()
+            filterDialog.show(parentFragmentManager, "filterDialog")
+        }
+        dashboardViewModel.isSubmitted.observe(viewLifecycleOwner){ isSubmitted ->
+            getNearbyDonors(latitude, longitude, dashboardViewModel.dietary.value.toString(),
+                dashboardViewModel.distance.value?.toInt() ?: 1)
+        }
     }
 
 
     // This code is disgusting
-    private fun getNearbyDonors(latitude: Double, longitude: Double){
+    private fun getNearbyDonors(latitude: Double, longitude: Double, diet: String, distance: Int){
         val db = Firebase.firestore
         val center = GeoLocation(latitude, longitude)
-        // 30km radius of user
-        val radiusInM = (30 * 1000).toDouble()
+        // Distance in km
+        val radiusInM = (distance * 1000).toDouble()
         val bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM)
         val tasks = ArrayList<Task<QuerySnapshot>>()
         bounds.forEach { b ->
             val query = db.collection("users")
                 .whereEqualTo("userType", "restaurant")
+                .whereEqualTo("dietary", diet)
                 .orderBy("geohash")
                 .startAt(b.startHash)
                 .endAt(b.endHash)
 
             val privateDonorQuery = db.collection("users")
                 .whereEqualTo("userType", "private_donor")
+                .whereEqualTo("dietary", diet)
                 .orderBy("geohash")
                 .startAt(b.startHash)
                 .endAt(b.endHash)

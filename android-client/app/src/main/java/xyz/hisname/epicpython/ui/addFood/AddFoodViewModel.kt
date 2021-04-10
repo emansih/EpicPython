@@ -8,8 +8,7 @@ import androidx.preference.PreferenceManager
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.Instant
 
 class AddFoodViewModel(application: Application): AndroidViewModel(application) {
 
@@ -17,18 +16,20 @@ class AddFoodViewModel(application: Application): AndroidViewModel(application) 
     private val sharedPref by lazy { PreferenceManager.getDefaultSharedPreferences(getApplication()) }
 
 
-    fun storeData(description: String, amount: String, dateExpire: String,
+    fun storeData(description: String, amount: String, dateExpire: String, dietary: String,
                   additionalNotes: String, attachment: ArrayList<Uri>){
         val db = Firebase.firestore
         val userId = sharedPref.getString("userId", "") ?: ""
-        val timestamp = LocalDateTime.now().toEpochSecond(ZoneOffset.of(ZoneOffset.systemDefault().id))
+        val timestamp = Instant.now().epochSecond
+
         val userAttribute = hashMapOf(
             "description" to description,
             "amount" to amount,
             "dateExpire" to dateExpire,
             "additionalNotes" to additionalNotes,
             "uid" to  userId,
-            "timestamp" to timestamp
+            "timestamp" to timestamp,
+            "dietary" to dietary
         )
 
         db.collection("food")

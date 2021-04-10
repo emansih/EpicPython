@@ -105,6 +105,7 @@ class AddFoodFragment: Fragment() {
             ProgressBar.animateView(binding.progressLayout.progressOverlay, View.VISIBLE, 0.4f)
             addFoodModel.storeData(binding.descriptionEdittext.text.toString(),
                 binding.amountEdittext.text.toString(), binding.dateExpiredEditText.text.toString(),
+                binding.dietarySpinner.selectedItem.toString(),
                 binding.noteEdittext.text.toString(), attachmentDataAdapter)
         }
         binding.attachmentInformation.layoutManager = LinearLayoutManager(requireContext())

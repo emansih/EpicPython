@@ -17,7 +17,7 @@ class Items(db.Model):
         return '<Items &r>' % self.id
 
 
-@app.route('/', methods='POST', 'GET')
+@app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
         item_content = request.form['item']
@@ -32,7 +32,7 @@ def index():
     else:
         items = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html', items=items)
-@app.route('/delete/<int: id>')
+@app.route('/delete/<int:id>')
 def delete(id):
     item_to_delete = Todo.query.get_or_404(id)
 

@@ -29,6 +29,10 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.sizeDp
 import xyz.hisname.epicpython.R
 import xyz.hisname.epicpython.databinding.FragmentDashboardBinding
 import xyz.hisname.epicpython.model.FoodModel
@@ -87,7 +91,12 @@ class DashboardFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = foodAdapter
-
+        binding.restaurantImage.setImageDrawable(
+            IconicsDrawable(requireContext()).apply {
+                icon = GoogleMaterial.Icon.gmd_local_restaurant
+                sizeDp = 50
+            }
+        )
         binding.fabAction.setOnClickListener {
             parentFragmentManager.commit {
                 replace(R.id.bigger_fragment_container, AddFoodFragment())
@@ -123,6 +132,14 @@ class DashboardFragment: Fragment() {
                 .orderBy("geohash")
                 .startAt(b.startHash)
                 .endAt(b.endHash)
+
+            val privateDonorQuery = db.collection("users")
+                .whereEqualTo("userType", "private_donor")
+                .orderBy("geohash")
+                .startAt(b.startHash)
+                .endAt(b.endHash)
+
+            tasks.add(privateDonorQuery.get())
             tasks.add(query.get())
         }
         Tasks.whenAllComplete(tasks).addOnCompleteListener {
@@ -138,6 +155,7 @@ class DashboardFragment: Fragment() {
                     }
                 }
             }
+            binding.nearbyText.text = matchingDocs.size.toString() + " food donors near you!"
             matchingDocs.forEach {  documentSnapshot ->
                 val uid = documentSnapshot.get("uid")
                 val query = db.collection("food")

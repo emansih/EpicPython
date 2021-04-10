@@ -87,7 +87,7 @@ class FoodAdapters(private val foodData: List<FoodModel>,
                 "$distanceInKm km"
             } else {
                 val distanceInM = df.format(distance)
-                "$distanceInM m"
+                "$distanceInM meters"
             }
 
 

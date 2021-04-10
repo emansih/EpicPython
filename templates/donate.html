@@ -31,14 +31,14 @@
             <div class="columns is-vcentered">
                 <div class="column is-4">
                     <figure class="image">
-                        <img src="https://www.flaticon.com/svg/vstatic/svg/3222/3222325.svg?token=exp=1617969866~hmac=9b31bd572fc4c0bf423186ab4d74d054"
+                        <img src="https://user-images.githubusercontent.com/56028891/114262805-5f673980-9a25-11eb-9081-3c6f3ebbf174.png"
                              alt="donate food">
                     </figure>
                 </div>
                 <div class="column is-7 is-offset-2">
                     <div class="column is-half">
                         <p class="title is-1">
-                            Donate
+                            Donate/ Sell Food
                         </p>
                         <br>
                         <!--                        <div class="notification is-danger is-light">-->
@@ -46,7 +46,21 @@
                         <!--                        </div>-->
                         <form method="post">
                             <div class="field">
-                                <input class="input" type="text" name="food_name" placeholder="Food name" required>
+                                <div class="select">
+                                    <select name="region">
+                                        <option selected="true" disabled="disabled">
+                                            Region--------------------------------
+                                        </option>
+                                        <option value="qld">QLD</option>
+                                        <option value="sa">SA</option>
+                                        <option value="tas">TAS</option>
+                                        <option value="act">ACT</option>
+                                        <option value="nt">NT</option>
+                                        <option value="nsw">NSW</option>
+                                        <option value="wa">WA</option>
+                                        <option value="vic">VIC</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="field">
                                 <div class="select">
@@ -65,13 +79,25 @@
                                 </div>
                             </div>
                             <div class="field">
+                                <input class="input" type="text" name="food_name" placeholder="Food item name" required>
+                            </div>
+                            <div class="field">
                                 <input class="input" type="text" name="quantity" placeholder="Quantity" required>
                             </div>
                             <div class="field">
-                                <input class="input" type="text" name="address" placeholder="Address" required>
+                                <input class="input" type="number" name="quantity" placeholder="Price $" required>
+                            </div>
+                            <hr>
+                            <div class="field">
+                                <input class="input" type="text" name="address"
+                                       placeholder="Restaurant/ Marketplace Address" required>
                             </div>
                             <div class="field">
                                 <input class="input" type="text" name="contact" placeholder="Contact Number" required>
+                            </div>
+                            <div class="field">
+                                <textarea class="textarea" type="text" name="contact"
+                                          placeholder="Description"></textarea>
                             </div>
                             <input class="button is-primary" type="submit" value="Submit">
                         </form>

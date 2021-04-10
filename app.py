@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect
 
 import firebase_admin
 from firebase_admin import credentials
@@ -60,7 +60,7 @@ def storefood():
         u'additionalNotes': description,
         u'uid': uid
     })
-    return render_template('index.html')
+    return redirect("/")
 
 
 @app.route('/cart')

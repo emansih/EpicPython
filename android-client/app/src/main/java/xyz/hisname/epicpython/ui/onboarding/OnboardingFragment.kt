@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -58,6 +60,19 @@ class OnboardingFragment: Fragment() {
             if(!address.isNullOrBlank()){
                 binding.addressEditText.setText(address)
             }
+        }
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if(position == 2){
+                    binding.addressEditText.isGone = true
+                    binding.phoneLayout.isGone = true
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
         }
 
         binding.submitButton.setOnClickListener {

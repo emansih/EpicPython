@@ -18,7 +18,7 @@ var uiConfig = {
         }
     },
     signInFlow: 'popup',
-    signInSuccessUrl: '/',
+    signInSuccessUrl: '/authCheck',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.GithubAuthProvider.PROVIDER_ID,

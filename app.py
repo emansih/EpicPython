@@ -16,6 +16,34 @@ db = firestore.client()
 def index():
     return render_template('index.html')
 
+@app.route('/authCheck')
+def authCheck():
+    doc_ref = db.collection(u'users')
+    uid = request.cookies.get('userId')
+    query = doc_ref.where(u'uid', u'==', uid).get()
+    return render_template('registrationForm.html') if not query else render_template('index.html')
+
+@app.route('/storeUserData', methods=['POST'])
+def storeUserData():
+    userType = request.form['userType']
+    name = request.form['name']
+    phoneNumber = request.form['phoneNumber']
+    divLatitude = request.form['divLatitude']
+    divLongitude  = request.form['divLongitude']
+    geoHash  = request.form['geoHash']
+    uid = request.cookies.get('userId')
+    doc_ref = db.collection(u'users')
+    doc_ref.add({
+        u'name': name,
+        u'phoneNumber': phoneNumber,
+        u'uid': uid,
+        u'userType': userType,
+        u'latitude': divLatitude,
+        u'longitude': divLatitude,
+        u'geohash': geoHash
+    })
+    return redirect("/")
+
 
 @app.route('/signup/donor')
 def signup_donor():

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Food Donation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <script type=text/javascript src="{{ url_for('static', filename='cookies.js') }}"></script>
 </head>
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -13,12 +14,11 @@
             <a href="/" class="navbar-item">
                 Home
             </a>
-            <a href="/donate" class="navbar-item">
+            <a href="/donate" class="navbar-item" id="donateButton">
                 Donate
             </a>
         </div>
-
-        <div class="navbar-end">
+        <div id="loginButton" class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
                     <a href="/login" class="button is-link">Login</a>
@@ -26,6 +26,15 @@
             </div>
         </div>
     </div>
+    <script>
+        if(getCookie("userId") != null){
+            var x = document.getElementById("loginButton");
+            x.style.display = "none";
+        } else {
+            var x = document.getElementById("donateButton");
+            x.style.display = "none";
+        }
+    </script>
 </nav>
 
 <section class="hero is-link is-fullheight-with-navbar">
@@ -44,17 +53,6 @@
                         Welcome to Food Donation
                     </p>
                     <br>
-                    <div class="buttons is-centered">
-                        <a href="/signup/donor" class="button is-medium is-white is-outlined has-text-white">
-                            I want to donate food
-                        </a>
-                        <a href="/signup/buyer" class="button is-medium is-white is-outlined has-text-white">
-                            I am a food buyer
-                        </a>
-                        <a href="/signup/free" class="button is-medium is-white is-outlined has-text-white">
-                            I need free emergency food supplies
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

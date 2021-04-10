@@ -19,11 +19,9 @@ import com.firebase.geofire.GeoFireUtils
 import com.firebase.geofire.GeoLocation
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.utils.colorRes
@@ -33,11 +31,9 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.Polygon
 import xyz.hisname.epicpython.BuildConfig
 import xyz.hisname.epicpython.R
 import xyz.hisname.epicpython.databinding.FragmentDonorLocationBinding
-import xyz.hisname.epicpython.model.FoodModel
 import xyz.hisname.epicpython.util.toastInfo
 import java.io.File
 
@@ -126,6 +122,7 @@ class DonorLocationFragment: Fragment() {
         arrayOfCoords.forEach { coords ->
             val location = GeoPoint(coords.first, coords.second)
             startMarker.position = location
+
             binding.maps.overlays.add(startMarker)
         }
         val location = GeoPoint(arrayOfCoords[0].first, arrayOfCoords[0].second)

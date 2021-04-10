@@ -92,7 +92,6 @@ class MapFragment: Fragment() {
         }
         setMapClick()
         setFab()
-        searchLocation()
         binding.okButton.setOnClickListener {
 
             mapsViewModel.latitude.postValue(startMarker.position.latitude)
@@ -122,39 +121,6 @@ class MapFragment: Fragment() {
         mapController.setZoom(18.0)
     }
 
-    private fun searchLocation(){
-        binding.mapSearch.setOnKeyListener { v, keyCode, event ->
-            if(event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                location(binding.mapSearch.text.toString())
-            }
-            false
-        }
-        binding.mapSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(editable: Editable) {
-                if(editable.isNotBlank()) {
-                    location(editable.toString())
-                }
-            }
-
-            override fun beforeTextChanged(charSequence: CharSequence, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(charSequence: CharSequence, p1: Int, p2: Int, p3: Int) {}
-
-        })
-        binding.mapSearch.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
-            setMap(GeoPoint(cloneLocationList[i].lat, cloneLocationList[i].lon))
-        }
-    }
-
-    private fun location(query: String){
-        mapsViewModel.getLocationFromQuery(query).observe(viewLifecycleOwner){ data ->
-            if(data.isNotEmpty()){
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.select_dialog_item, data)
-                binding.mapSearch.setAdapter(adapter)
-            }
-        }
-    }
 
     private fun setMapClick(){
         val mapReceiver = object : MapEventsReceiver {

@@ -33,12 +33,9 @@
                         {% if user_type == 'donor': %}
                         <img src="https://user-images.githubusercontent.com/56028891/114262678-a0128300-9a24-11eb-822a-2153869b4d78.png"
                              alt="food donor signup">
-                        {% elif user_type == 'buyer': %}
+                        {% elif user_type == 'free': %}
                         <img src="https://user-images.githubusercontent.com/56028891/114262709-c7695000-9a24-11eb-8010-021028c579ae.png"
                              alt="food buyer signup">
-                        {% elif user_type == 'free': %}
-                        <img src="https://user-images.githubusercontent.com/56028891/114262733-ecf65980-9a24-11eb-81f0-4aa5576d62da.png"
-                             alt="emergency food supplies signup">
                         {% endif %}
                     </figure>
                 </div>
@@ -51,10 +48,8 @@
                         <p class="subtitle is-4">
                             {% if user_type == 'donor': %}
                             as a Food Donor
-                            {% elif user_type == 'buyer': %}
-                            as a Food Buyer
                             {% elif user_type == 'free': %}
-                            for Free Emergency Food Supplies
+                            for Free Food
                             {% endif %}
                         </p>
                         <!--                        <div class="notification is-warning">-->

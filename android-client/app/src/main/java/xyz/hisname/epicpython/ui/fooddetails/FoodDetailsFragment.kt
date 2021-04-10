@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -34,7 +36,7 @@ class FoodDetailsFragment: Fragment() {
     private val foodAdapter by lazy { FoodImagesAdapter(imagesList) }
     private val databaseId: String by lazy { arguments?.getString("databaseId") as String  }
     private val userId: String by lazy { arguments?.getString("userId") as String  }
-
+    private var amount: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentFoodDetailsBinding = FragmentFoodDetailsBinding.inflate(inflater, container, false)
@@ -59,15 +61,40 @@ class FoodDetailsFragment: Fragment() {
                 showMapLocation(userAttribute?.get("latitude").toString().toDouble(),
                     userAttribute?.get("longitude").toString().toDouble())
             }
-        db.collection("food").document(databaseId).get().addOnCompleteListener {  querySnapshot ->
-            val food = querySnapshot.result
-            val amount = food?.get("amount").toString()
-            val description = food?.get("description").toString()
-            val expiryDate = food?.get("dateExpire").toString()
-            val notes = food?.get("additionalNotes").toString()
-            binding.food.text = amount + "x " + description
-            binding.expiryDate.text = "Expiry Date: " + expiryDate
-            binding.notes.text = notes
+        db.collection("food").document(databaseId).addSnapshotListener { value, error ->
+            if(value != null){
+                amount = value.get("amount").toString().toInt()
+                val description = value.get("description").toString()
+                val expiryDate = value.get("dateExpire").toString()
+                val notes = value.get("additionalNotes").toString()
+                binding.food.text = amount.toString() + "x " + description
+                binding.expiryDate.text = "Expiry Date: " + expiryDate
+                binding.notes.text = notes
+                binding.quantity.text = amount.toString()
+                if(amount == 0){
+                    binding.minusButton.isClickable = false
+                } else if(amount >= 1) {
+                    binding.minusButton.isClickable = true
+                }
+                val uid = FirebaseAuth.getInstance().currentUser.uid
+                if(!userId.contentEquals(uid)){
+                    binding.minusButton.isGone = true
+                    binding.plusButton.isGone = true
+                    binding.quantity.isGone = true
+                }
+            }
+        }
+
+        binding.minusButton.setOnClickListener {
+            db.collection("food")
+                .document(databaseId)
+                .update(mutableMapOf("amount" to amount.minus(1).toString()) as Map<String, String>)
+        }
+
+        binding.plusButton.setOnClickListener {
+            db.collection("food")
+                .document(databaseId)
+                .update(mutableMapOf("amount" to amount.plus(1).toString()) as Map<String, String>)
         }
     }
 

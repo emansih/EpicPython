@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "520305167017-fiq9niff4ajctpeob2cfuenmv65ja43e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.hisname.epicpython",
+            "certificate_hash": "9c3ddf6716e2591130bde239368709737f0e2f3f"
+          }
+        },
+        {
           "client_id": "520305167017-s5p9nuve3e2ha9v3u4npigvlkq4a93ef.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

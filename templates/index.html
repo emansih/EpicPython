@@ -33,7 +33,7 @@
         </div>
     </div>
     <script>
-        if(getCookie("userId") != null){
+        if (getCookie("userId") != null) {
             var x = document.getElementById("loginButton");
             x.style.display = "none";
         } else {
@@ -59,6 +59,17 @@
                         Welcome to Food Donation
                     </p>
                     <br>
+                    <div class="buttons is-centered">
+                        <a href="/signup/donor" class="button is-medium is-white is-outlined has-text-white">
+                            I want to donate food
+                        </a>
+                        <a href="/signup/buyer" class="button is-medium is-white is-outlined has-text-white">
+                            I am a food buyer
+                        </a>
+                        <a href="/signup/free" class="button is-medium is-white is-outlined has-text-white">
+                            I need free emergency food supplies
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

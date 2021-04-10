@@ -5,5 +5,9 @@ data class FoodModel(
     val timestamp: String,
     val description: String,
     val name: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val latitude: String,
+    val longitude: String,
+    val userLatitude: Double,
+    val userLongitude: Double
 )

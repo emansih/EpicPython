@@ -76,7 +76,6 @@ class DashboardFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         binding.recyclerView.adapter = foodAdapter
 
 
@@ -133,6 +132,7 @@ class DashboardFragment: Fragment() {
                                     val storage = Firebase.storage
                                     val storageRef = storage.reference
                                     foodList.clear()
+                                    val userAttribute = queryTask.result?.documents?.get(0)
                                     try {
                                         val attachmentRef = storageRef.child("attachments/" + documentSnapshot.id)
                                         attachmentRef.listAll().addOnSuccessListener {  listResult ->
@@ -142,7 +142,10 @@ class DashboardFragment: Fragment() {
                                                         documentSnapshot.get("uid").toString(),
                                                         documentSnapshot.get("timestamp").toString(),
                                                         documentSnapshot.get("description").toString(),
-                                                        queryTask.result?.documents?.get(0)?.get("name").toString(), ""
+                                                        userAttribute?.get("name").toString(),
+                                                        "", userAttribute?.get("latitude").toString(),
+                                                        userAttribute?.get("longitude").toString(),
+                                                        latitude, longitude
                                                     )
                                                 )
                                             } else {
@@ -153,7 +156,9 @@ class DashboardFragment: Fragment() {
                                                             documentSnapshot.get("timestamp").toString(),
                                                             documentSnapshot.get("description").toString(),
                                                             queryTask.result?.documents?.get(0)?.get("name").toString(),
-                                                            uri.toString()
+                                                            uri.toString(), userAttribute?.get("latitude").toString(),
+                                                            userAttribute?.get("longitude").toString(),
+                                                            latitude, longitude
                                                         )
                                                     )
                                                 }
@@ -165,7 +170,10 @@ class DashboardFragment: Fragment() {
                                                 documentSnapshot.get("uid").toString(),
                                                 documentSnapshot.get("timestamp").toString(),
                                                 documentSnapshot.get("description").toString(),
-                                                queryTask.result?.documents?.get(0)?.get("name").toString(), ""
+                                                userAttribute?.get("name").toString(),
+                                                "", userAttribute?.get("latitude").toString(),
+                                                userAttribute?.get("longitude").toString(),
+                                                latitude, longitude
                                             )
                                         )
                                     }

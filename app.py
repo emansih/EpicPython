@@ -34,3 +34,7 @@ def login():
 @app.route('/donate')
 def donate():
     return render_template('donate.html')
+
+@app.route('/cart')
+def cart():
+    return render_template('cart.html')

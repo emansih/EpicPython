@@ -46,7 +46,7 @@
                         <!--                        </div>-->
                         <form method="post">
                             <div class="field">
-                                <input class="input" type="text" placeholder="Food name" required>
+                                <input class="input" type="text" name="food_name" placeholder="Food name" required>
                             </div>
                             <div class="field">
                                 <div class="select">
@@ -65,16 +65,13 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <div class="select">
-                                    <select name="quantity">
-                                        <option selected="true" disabled="disabled">Quantity</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5+">5+</option>
-                                    </select>
-                                </div>
+                                <input class="input" type="text" name="quantity" placeholder="Quantity" required>
+                            </div>
+                            <div class="field">
+                                <input class="input" type="text" name="address" placeholder="Address" required>
+                            </div>
+                            <div class="field">
+                                <input class="input" type="text" name="contact" placeholder="Contact Number" required>
                             </div>
                             <input class="button is-primary" type="submit" value="Submit">
                         </form>

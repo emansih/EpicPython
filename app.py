@@ -39,4 +39,9 @@ def cart():
 
 @app.route('/list')
 def list():
-    return render_template('list.html')
+    return render_template('donation_received.html')
+
+
+@app.route('/charity')
+def charity():
+    return render_template('charity.html')

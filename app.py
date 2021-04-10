@@ -96,10 +96,17 @@ def signup(type):
 def login():
     return render_template('login.html')
 
+
 @app.route('/donate')
 def donate():
     return render_template('donate.html')
 
+
 @app.route('/cart')
 def cart():
     return render_template('cart.html')
+
+
+@app.route('/list')
+def list():
+    return render_template('list.html')

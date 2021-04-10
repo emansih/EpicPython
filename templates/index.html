@@ -16,6 +16,12 @@
             <a href="/donate" class="navbar-item">
                 Donate
             </a>
+            <a href="/cart" class="navbar-item">
+                Cart
+            </a>
+            <a href="/list" class="navbar-item">
+                Donation received
+            </a>
         </div>
 
         <div class="navbar-end">
@@ -62,21 +68,18 @@
 </section>
 <br><br>
 
-<div class="container has-text-centered">
-    {% for i in range(2) %}
-    <div class="tile is-ancestor">
-        {% for i in range(3) %}
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-warning is-light">
-                <a class="title">Food name</a>
-                <br><br>
-                <p class="subtitle">Donor</p>
-                <span class="tag is-link is-light is-medium">Category</span>
-            </article>
-        </div>
-        {% endfor %}
-    </div>
-    {% endfor %}
-</div>
+<section class="section has-text-centered">
+    <h1 class="title is-1">Download our mobile app!</h1>
+    <br>
+    <h2 class="subtitle is-4">
+        Check out our food donation partners near you
+    </h2>
+    <br>
+    <input type="button" class="button is-link is-large"
+           onclick="location.href='https://drive.google.com/file/d/1E2Nhog8WcjxtjuXv8EtL4ypoAgXzoPz-/view?usp=sharing';"
+           value="Download"/>
+</section>
+
+
 </body>
 </html>

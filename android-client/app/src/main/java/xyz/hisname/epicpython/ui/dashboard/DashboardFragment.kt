@@ -171,6 +171,7 @@ class DashboardFragment: Fragment() {
                 val uid = documentSnapshot.get("uid")
                 val query = db.collection("food")
                     .orderBy("timestamp")
+                    .whereEqualTo("dietary", diet)
                     .whereEqualTo("uid", uid)
                 query.addSnapshotListener { value, error ->
                     if(value != null){
@@ -186,60 +187,48 @@ class DashboardFragment: Fragment() {
                                         val attachmentRef = storageRef.child("attachments/" + documentSnapshot.id)
                                         attachmentRef.listAll().addOnSuccessListener {  listResult ->
                                             if(listResult.items.isEmpty()){
-                                                if(documentSnapshot.get("dietary").toString().contentEquals(diet)){
+                                                foodList.add(
+                                                    FoodModel(
+                                                        documentSnapshot.get("uid").toString(),
+                                                        documentSnapshot.id,
+                                                        documentSnapshot.get("timestamp").toString(),
+                                                        documentSnapshot.get("description").toString(),
+                                                        userAttribute?.get("name").toString(),
+                                                        "", userAttribute?.get("latitude").toString(),
+                                                        userAttribute?.get("longitude").toString(),
+                                                        latitude, longitude))
+                                            } else {
+                                                listResult.items[0].downloadUrl.addOnSuccessListener { uri ->
                                                     foodList.add(
                                                         FoodModel(
                                                             documentSnapshot.get("uid").toString(),
                                                             documentSnapshot.id,
                                                             documentSnapshot.get("timestamp").toString(),
                                                             documentSnapshot.get("description").toString(),
-                                                            userAttribute?.get("name").toString(),
-                                                            "", userAttribute?.get("latitude").toString(),
+                                                            queryTask.result?.documents?.get(0)?.get("name").toString(),
+                                                            uri.toString(), userAttribute?.get("latitude").toString(),
                                                             userAttribute?.get("longitude").toString(),
-                                                            latitude, longitude
-                                                        )
-                                                    )
-                                                }
-                                            } else {
-                                                if(documentSnapshot.get("dietary").toString().contentEquals(diet)) {
-                                                    listResult.items[0].downloadUrl.addOnSuccessListener { uri ->
-                                                        foodList.add(
-                                                            FoodModel(
-                                                                documentSnapshot.get("uid").toString(),
-                                                                documentSnapshot.id,
-                                                                documentSnapshot.get("timestamp").toString(),
-                                                                documentSnapshot.get("description").toString(),
-                                                                queryTask.result?.documents?.get(0)?.get("name").toString(),
-                                                                uri.toString(), userAttribute?.get("latitude").toString(),
-                                                                userAttribute?.get("longitude").toString(),
-                                                                latitude, longitude
-                                                            )
-                                                        )
+                                                            latitude, longitude))
                                                     }
-                                                }
                                             }
                                         }
                                     } catch (exception: Exception){
-                                        if(documentSnapshot.get("dietary").toString().contentEquals(diet)) {
-                                            foodList.add(
-                                                FoodModel(
-                                                    documentSnapshot.get("uid").toString(),
-                                                    documentSnapshot.id,
-                                                    documentSnapshot.get("timestamp").toString(),
-                                                    documentSnapshot.get("description").toString(),
-                                                    userAttribute?.get("name").toString(),
-                                                    "", userAttribute?.get("latitude").toString(),
-                                                    userAttribute?.get("longitude").toString(),
-                                                    latitude, longitude
-                                                )
-                                            )
-                                        }
+                                        foodList.add(
+                                            FoodModel(
+                                                documentSnapshot.get("uid").toString(),
+                                                documentSnapshot.id,
+                                                documentSnapshot.get("timestamp").toString(),
+                                                documentSnapshot.get("description").toString(),
+                                                userAttribute?.get("name").toString(),
+                                                "", userAttribute?.get("latitude").toString(),
+                                                userAttribute?.get("longitude").toString(),
+                                                latitude, longitude))
                                     }
                                 }
                         }
-                        binding.nearbyText.text = foodList.size.toString() + " food donors near you!"
-                        foodAdapter.notifyDataSetChanged()
+                        binding.nearbyText.text = matchingDocs.size.toString() + " food donors near you!"
                     }
+                    foodAdapter.notifyDataSetChanged()
                 }
             }
         }

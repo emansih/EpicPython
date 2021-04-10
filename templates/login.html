@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-start">
+            <a href="/" class="navbar-item">
+                Home
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a href="/login" class="button is-link">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero is-link is-fullheight-with-navbar">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-vcentered">
+                <div class="column is-4">
+                    <figure class="image">
+                        <img src="https://www.flaticon.com/svg/vstatic/svg/3798/3798771.svg?token=exp=1617966944~hmac=f737770f945da295e082c512257f6b8b"
+                             alt="food donor signup">
+                    </figure>
+                </div>
+                <div class="column is-7 is-offset-2">
+                    <div class="column is-half">
+                        <p class="title is-1">
+                            Log in
+                        </p>
+                        <br>
+                        <!--                        <div class="notification is-warning">-->
+                        <!--                            wrong id or password-->
+                        <!--                        </div>-->
+                        <form method="post">
+                            <div class="field">
+                                <input class="input" type="text" placeholder="Username" required>
+                            </div>
+                            <div class="field">
+                                <input class="input" type="password" placeholder="Password" required>
+                            </div>
+                            <input class="button is-primary" type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+</body>
+</html>

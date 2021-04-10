@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "520305167017",
+    "project_id": "epicpython-d990d",
+    "storage_bucket": "epicpython-d990d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520305167017:android:edfd4cf77715bd2066f7b8",
+        "android_client_info": {
+          "package_name": "xyz.hisname.epicpython"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520305167017-fiq9niff4ajctpeob2cfuenmv65ja43e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.hisname.epicpython",
+            "certificate_hash": "9c3ddf6716e2591130bde239368709737f0e2f3f"
+          }
+        },
+        {
+          "client_id": "520305167017-s5p9nuve3e2ha9v3u4npigvlkq4a93ef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.hisname.epicpython",
+            "certificate_hash": "2da4b3bca8772e4959cfbed9887fae3b6b42b8ef"
+          }
+        },
+        {
+          "client_id": "520305167017-171lls93at6iiflkn0ftlvnkqfk8lt34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi5Mtwqr0GXxp8IKURFexrkqZ-diZPzew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520305167017-171lls93at6iiflkn0ftlvnkqfk8lt34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

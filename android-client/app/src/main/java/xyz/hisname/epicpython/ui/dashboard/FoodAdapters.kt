@@ -13,7 +13,8 @@ import java.text.DecimalFormat
 import java.time.*
 import java.time.temporal.ChronoUnit
 
-class FoodAdapters(private val foodData: List<FoodModel>): RecyclerView.Adapter<FoodAdapters.FoodHolder>() {
+class FoodAdapters(private val foodData: List<FoodModel>,
+                   private val clickListener:(FoodModel) -> Unit): RecyclerView.Adapter<FoodAdapters.FoodHolder>() {
 
     private var dashboardItems: DashboardItemsBinding? = null
     private val binding get() = dashboardItems!!
@@ -27,13 +28,13 @@ class FoodAdapters(private val foodData: List<FoodModel>): RecyclerView.Adapter<
 
 
     override fun onBindViewHolder(holder: FoodHolder, position: Int) {
-        holder.bind(foodData[position])
+        holder.bind(foodData[position], clickListener)
     }
 
     override fun getItemCount() = foodData.size
 
     inner class FoodHolder(itemView: DashboardItemsBinding): RecyclerView.ViewHolder(itemView.root) {
-        fun bind(foodModel: FoodModel) {
+        fun bind(foodModel: FoodModel, clickListener: (FoodModel) -> Unit) {
             if(foodModel.imageUrl.isEmpty()){
                 binding.userImage.isGone = true
             } else {
@@ -94,6 +95,10 @@ class FoodAdapters(private val foodData: List<FoodModel>): RecyclerView.Adapter<
             binding.descriptionText.text = foodModel.description
             binding.timestamp.text = " • " + dateTimeToShow
             binding.donorName.text = foodModel.name
+
+            binding.root.setOnClickListener {
+                clickListener(foodModel)
+            }
         }
     }
 }

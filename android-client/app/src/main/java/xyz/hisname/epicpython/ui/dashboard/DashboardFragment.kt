@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -32,7 +33,7 @@ import xyz.hisname.epicpython.R
 import xyz.hisname.epicpython.databinding.FragmentDashboardBinding
 import xyz.hisname.epicpython.model.FoodModel
 import xyz.hisname.epicpython.ui.addFood.AddFoodFragment
-import xyz.hisname.epicpython.util.getImprovedViewModel
+import xyz.hisname.epicpython.ui.fooddetails.FoodDetailsFragment
 import xyz.hisname.epicpython.util.toastInfo
 
 class DashboardFragment: Fragment() {
@@ -41,10 +42,8 @@ class DashboardFragment: Fragment() {
     private val binding get() = fragmentDashboardBinding!!
     private lateinit var gpsPermission: ActivityResultLauncher<String>
     private val locationService by lazy { requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager }
-    private val dashboardViewModel by lazy { getImprovedViewModel(DashboardViewModel::class.java) }
     private val foodList = arrayListOf<FoodModel>()
-    private val foodAdapter by lazy { FoodAdapters(foodList) }
-    private val sharedPref by lazy { PreferenceManager.getDefaultSharedPreferences(requireContext()) }
+    private val foodAdapter by lazy { FoodAdapters(foodList){ data: FoodModel -> clickListener(data)} }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentDashboardBinding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -76,11 +75,18 @@ class DashboardFragment: Fragment() {
     }
 
 
+    private fun clickListener(data: FoodModel){
+        parentFragmentManager.commit {
+            replace(R.id.fragment_container, FoodDetailsFragment().apply {
+                arguments = bundleOf("databaseId" to data.entryId, "userId" to data.uid)
+            })
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = foodAdapter
-
 
         binding.fabAction.setOnClickListener {
             parentFragmentManager.commit {
@@ -154,6 +160,7 @@ class DashboardFragment: Fragment() {
                                                 foodList.add(
                                                     FoodModel(
                                                         documentSnapshot.get("uid").toString(),
+                                                        documentSnapshot.id,
                                                         documentSnapshot.get("timestamp").toString(),
                                                         documentSnapshot.get("description").toString(),
                                                         userAttribute?.get("name").toString(),
@@ -167,6 +174,7 @@ class DashboardFragment: Fragment() {
                                                     foodList.add(
                                                         FoodModel(
                                                             documentSnapshot.get("uid").toString(),
+                                                            documentSnapshot.id,
                                                             documentSnapshot.get("timestamp").toString(),
                                                             documentSnapshot.get("description").toString(),
                                                             queryTask.result?.documents?.get(0)?.get("name").toString(),
@@ -182,6 +190,7 @@ class DashboardFragment: Fragment() {
                                         foodList.add(
                                             FoodModel(
                                                 documentSnapshot.get("uid").toString(),
+                                                documentSnapshot.id,
                                                 documentSnapshot.get("timestamp").toString(),
                                                 documentSnapshot.get("description").toString(),
                                                 userAttribute?.get("name").toString(),

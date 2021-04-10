@@ -39,63 +39,31 @@
                             Donate/ Sell Food
                         </p>
                         <br>
-                        <!--                        <div class="notification is-danger is-light">-->
-                        <!--                            Thank you for your donation!-->
-                        <!--                        </div>-->
-                        <form method="post">
+                        <form method="post" action="/storeFood">
                             <div class="field">
                                 <div class="select">
-                                    <select name="region">
-                                        <option selected="true" disabled="disabled">
-                                            Region--------------------------------
-                                        </option>
-                                        <option value="qld">QLD</option>
-                                        <option value="sa">SA</option>
-                                        <option value="tas">TAS</option>
-                                        <option value="act">ACT</option>
-                                        <option value="nt">NT</option>
-                                        <option value="nsw">NSW</option>
-                                        <option value="wa">WA</option>
-                                        <option value="vic">VIC</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="select">
-                                    <select name="category">
-                                        <!--                                        <input type="hidden" name="donor" value={{ current_user }}>-->
+                                    <select id="category" name="category">
                                         <option selected="true" disabled="disabled">Category</option>
-                                        <option value="breads and cereals, rice, pasta, noodle">breads and cereals,
-                                            rice,
-                                            pasta, noodle
-                                        </option>
-                                        <option value="vegetables and fruits">vegetables and fruits</option>
-                                        <option value="dairy food">dairy food</option>
-                                        <option value="meat">meat</option>
-                                        <option value="cooking supplies">cooking supplies</option>
+                                        <option value="No Dietary Requirements">No Dietary Requirements</option>
+                                        <option value="Halal">Halal</option>
+                                        <option value="Vegan">Vegan</option>
+                                        <option value="Non-dairy">Non-dairy</option>
+                                        <option value="Gluten Free">Gluten Free</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="field">
-                                <input class="input" type="text" name="food_name" placeholder="Food item name" required>
+                                <input class="input" type="text" id="foodName" name="foodName" placeholder="Food item name" required>
                             </div>
                             <div class="field">
-                                <input class="input" type="text" name="quantity" placeholder="Quantity" required>
+                                <input class="input" type="text" id="quantity" name="quantity" placeholder="Quantity" required>
                             </div>
                             <div class="field">
-                                <input class="input" type="number" name="quantity" placeholder="Price $" required>
+                                <input class="input" type="date" id="expiryDate" name="expiryDate" placeholder="Expire Date" required>
                             </div>
                             <hr>
                             <div class="field">
-                                <input class="input" type="text" name="address"
-                                       placeholder="Restaurant/ Marketplace Address" required>
-                            </div>
-                            <div class="field">
-                                <input class="input" type="text" name="contact" placeholder="Contact Number" required>
-                            </div>
-                            <div class="field">
-                                <textarea class="textarea" type="text" name="contact"
-                                          placeholder="Description"></textarea>
+                                <textarea class="textarea" id="description" name="description" placeholder="Description"></textarea>
                             </div>
                             <input class="button is-primary" type="submit" value="Submit">
                         </form>

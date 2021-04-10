@@ -7,7 +7,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
-class Items(db.Model):
+
+class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item = db.Column(db.String(200), nullable=False) #don't leave empty
     number = db.Column(db.Integer, primary_key=True)

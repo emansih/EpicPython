@@ -136,6 +136,12 @@ class DashboardFragment: Fragment() {
             getNearbyDonors(latitude, longitude, dashboardViewModel.dietary.value.toString(),
                 dashboardViewModel.distance.value?.toInt() ?: 1)
         }
+        binding.nearbyDonors.setOnClickListener {
+            parentFragmentManager.commit {
+                replace(R.id.bigger_fragment_container, DonorLocationFragment())
+                addToBackStack(null)
+            }
+        }
     }
 
 

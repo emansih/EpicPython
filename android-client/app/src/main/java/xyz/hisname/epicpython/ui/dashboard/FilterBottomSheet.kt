@@ -49,6 +49,7 @@ class FilterBottomSheet: BottomSheetDialogFragment() {
 
             dashboardViewModel.dietary.postValue(binding.dietarySpinner.selectedItem.toString())
             dashboardViewModel.isSubmitted.postValue(true)
+            dismiss()
         }
     }
 }

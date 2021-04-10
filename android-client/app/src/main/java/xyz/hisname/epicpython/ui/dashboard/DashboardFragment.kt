@@ -97,6 +97,7 @@ class DashboardFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeRefreshLayout.isRefreshing = true
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = foodAdapter
         binding.filterIcon.setImageDrawable(IconicsDrawable(requireContext()).apply {
@@ -225,6 +226,9 @@ class DashboardFragment: Fragment() {
                                                 latitude, longitude))
                                     }
                                 }
+                        }
+                        if(foodList.size == matchingDocs.size){
+                            binding.swipeRefreshLayout.isRefreshing = false
                         }
                         binding.nearbyText.text = matchingDocs.size.toString() + " food donors near you!"
                     }

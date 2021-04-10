@@ -9,4 +9,5 @@ class DashboardViewModel(application: Application): AndroidViewModel(application
     val isSubmitted = MutableLiveData<Boolean>()
     val distance = MutableLiveData<Int>()
     val dietary = MutableLiveData<String>()
+
 }

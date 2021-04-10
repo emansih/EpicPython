@@ -13,14 +13,16 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.geofire.GeoFireUtils
 import com.firebase.geofire.GeoLocation
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -42,6 +44,7 @@ class DashboardFragment: Fragment() {
     private val dashboardViewModel by lazy { getImprovedViewModel(DashboardViewModel::class.java) }
     private val foodList = arrayListOf<FoodModel>()
     private val foodAdapter by lazy { FoodAdapters(foodList) }
+    private val sharedPref by lazy { PreferenceManager.getDefaultSharedPreferences(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentDashboardBinding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -85,6 +88,17 @@ class DashboardFragment: Fragment() {
                 addToBackStack(null)
             }
         }
+        val userId = FirebaseAuth.getInstance().currentUser.uid
+        val db = Firebase.firestore
+        db.collection("users")
+            .whereEqualTo("uid", userId)
+            .get().addOnCompleteListener { query ->
+                val userAttribute = query.result?.documents?.get(0)
+                val userType = userAttribute?.get("userType").toString()
+                if(userType.contentEquals("restaurant") || userType.contentEquals("private_donor")){
+                    binding.fabAction.isVisible = true
+                }
+            }
         gpsPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 

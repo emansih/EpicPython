@@ -89,7 +89,7 @@ class FoodAdapters(private val foodData: List<FoodModel>): RecyclerView.Adapter<
                 "$distanceInM m"
             }
 
-            
+
             binding.distanceBetweenLocation.text = distanceBetween
             binding.descriptionText.text = foodModel.description
             binding.timestamp.text = " • " + dateTimeToShow

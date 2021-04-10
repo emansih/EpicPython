@@ -16,6 +16,7 @@
         app:backgroundTint="@color/md_green_600"
         android:textColor="@color/md_black_1000"
         android:layout_margin="16dp"
+        android:visibility="gone"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
